@@ -25,7 +25,7 @@ public class HouseholdNumberTypeScript {
             RelatedPerson relatedPerson = (RelatedPerson) entry.getResource();
             String householdId = null;
             for (Identifier identifier : relatedPerson.getIdentifier()) {
-                if (StringUtil.concatString(BASE_IDENTIFIER, Constants.HOUSEHOLD_ID).equals(identifier.getSystem()) || Constants.HOUSEHOLD_ID.equals(identifier.getSystem())) {
+                if (StringUtil.concatString(BASE_IDENTIFIER, Constants.HOUSEHOLD_ID).equals(identifier.getSystem())) {
                     householdId = identifier.getValue();
                 }
             }

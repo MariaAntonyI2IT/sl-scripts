@@ -34,12 +34,6 @@ public class App {
             case "updateMemberSequence":
                 new HouseholdSequence().updateMemberSequence();
                 break;
-            case "updateSpouseData":
-                new SpousePartner().updateSpouseData();
-                break;
-            case "updateDiagnosisData":
-                new Diagnosis().updateDiagnosisData();
-                break;
             case "updatePatientId":
                 new PatientIdUpdate().updateMemberSequence();
                 break;
@@ -48,6 +42,12 @@ public class App {
                 break;
             case "householdNumberType":
                 new HouseholdNumberTypeScript().updateHouseholdNumberType();
+                break;
+            case "updateSpouseData":
+                new SpousePartner().updateSpouseData();
+                break;
+            case "updateDiagnosisData":
+                new Diagnosis().updateDiagnosisData();
                 break;
             default:
                 System.out.println("Unknown method: " + args[0]);
