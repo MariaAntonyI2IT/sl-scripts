@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import com.mdtlabs.migration.script.Diagnosis;
+import com.mdtlabs.migration.script.FacilityReportAdmin;
 import com.mdtlabs.migration.script.HouseholdMemberLink;
 import com.mdtlabs.migration.script.HouseholdNumberTypeScript;
 import com.mdtlabs.migration.script.HouseholdSequence;
@@ -48,6 +49,8 @@ public class App {
                 break;
             case "updateDiagnosisData":
                 new Diagnosis().updateDiagnosisData();
+            case "facilityReportAdmin":
+                new FacilityReportAdmin().updateReportUserOrganization();
                 break;
             default:
                 System.out.println("Unknown method: " + args[0]);
@@ -55,7 +58,7 @@ public class App {
         }
 
         // Log time taken
-        System.out.println("Time taken: " +
+        System.out.println("\nTime taken: " +
                 TimeUnit.MILLISECONDS.toSeconds((new Date().getTime() - startDate.getTime())) + " seconds");
     }
 }
