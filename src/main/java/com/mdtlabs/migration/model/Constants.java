@@ -51,4 +51,9 @@ public class Constants {
     public static final String UNDER_TWO_MONTHS = "UNDER_TWO_MONTHS";
     public static final String UNDER_FIVE_YEARS = "UNDER_FIVE_YEARS";
     public static final String UNCOMPLICATED_MALARIA = "uncomplicatedMalaria";
+
+    // Facility Report Admin
+    public static final String FACILITY_REPORT_ADMIN_QUERY = "select u.id, uo.organization_id from \"user\" u inner join user_role ur on u.id = ur.user_id inner join role r on ur.role_id = r.id inner join user_organization uo on u.id = uo.user_id where r.name = 'FACILITY_REPORT_ADMIN'";
+    public static final String ORGANIZATION_ID = "organization_id";
+    public static final String INSERT_INTO_REPORT_USER_ORGANIZATION = "INSERT INTO report_user_organization (user_id, organization_id) VALUES (%d, %d)";
 }
