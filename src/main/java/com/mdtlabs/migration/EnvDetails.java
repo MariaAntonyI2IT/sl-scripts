@@ -8,6 +8,7 @@ import com.mdtlabs.migration.connection.FhirDatabaseConnection;
 import com.mdtlabs.migration.connection.SqlConnection;
 import com.mdtlabs.migration.model.Constants;
 import com.mdtlabs.migration.script.Diagnosis;
+import com.mdtlabs.migration.script.ExcelToDatabase;
 import com.mdtlabs.migration.script.HouseholdMemberLink;
 import com.mdtlabs.migration.script.HouseholdNumberTypeScript;
 import com.mdtlabs.migration.script.HouseholdSequence;
@@ -54,6 +55,13 @@ public class EnvDetails {
             HouseholdSequence.BASE_IDENTIFIER = prop.getProperty("identifier");
             HouseholdMemberLink.BASE_IDENTIFIER = prop.getProperty("identifier");
             HouseholdNumberTypeScript.BASE_IDENTIFIER = prop.getProperty("identifier");
+
+            ExcelToDatabase.EXCEL_FILEPATH = prop.getProperty("excelFilePath");
+            ExcelToDatabase.CONFIG_FILEPATH = prop.getProperty("configFilePath");
+            ExcelToDatabase.CONNECTION_URL = prop.getProperty("db.src.url");
+            ExcelToDatabase.USER_NAME = prop.getProperty("db.src.user");
+            ExcelToDatabase.PASSWORD = prop.getProperty("db.src.password");
+            ExcelToDatabase.BUNDLE_SIZE = Integer.parseInt(prop.getProperty("bundle.size"));
 
         } catch (IOException io) {
             io.printStackTrace();
