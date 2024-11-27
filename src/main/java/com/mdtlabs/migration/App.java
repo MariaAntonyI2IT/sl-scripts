@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.mdtlabs.migration.script.Diagnosis;
 import com.mdtlabs.migration.script.FacilityReportAdmin;
+import com.mdtlabs.migration.script.ExcelToDatabase;
 import com.mdtlabs.migration.script.HouseholdMemberLink;
 import com.mdtlabs.migration.script.HouseholdNumberTypeScript;
 import com.mdtlabs.migration.script.HouseholdSequence;
@@ -51,6 +52,8 @@ public class App {
                 new Diagnosis().updateDiagnosisData();
             case "facilityReportAdmin":
                 new FacilityReportAdmin().updateReportUserOrganization();
+            case "updatedMetaInDatabase":
+                new ExcelToDatabase().updatedMetaInDatabase();
                 break;
             default:
                 System.out.println("Unknown method: " + args[0]);
