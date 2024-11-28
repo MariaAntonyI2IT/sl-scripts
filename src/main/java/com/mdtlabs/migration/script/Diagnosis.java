@@ -45,7 +45,7 @@ public class Diagnosis {
 
                             if (Constants.ABOVE_FIVE_YEARS.equals(diagnosis)) {
                                 code.setText(Constants.UNCOMPLICATED_MALARIA);
-                            } else if (Arrays.asList(Constants.ANC_REVIEW, Constants.UNDER_TWO_MONTHS, Constants.UNDER_FIVE_YEARS).contains(diagnosis)) {
+                            } else if (Arrays.asList(Constants.ANC_REVIEW, Constants.UNDER_TWO_MONTHS, Constants.UNDER_FIVE_YEARS, Constants.PNC_MOTHER_REVIEW).contains(diagnosis)) {
                                 code.setText(Constants.UNCOMPLICATED_MALARIA);
 
                                 if (!category.isEmpty()) {
