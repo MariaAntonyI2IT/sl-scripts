@@ -49,6 +49,7 @@ public class Constants {
     public static final String ABOVE_FIVE_YEARS = "ABOVE_FIVE_YEARS";
     public static final String ANC_REVIEW = "ANC_REVIEW";
     public static final String UNDER_TWO_MONTHS = "UNDER_TWO_MONTHS";
+    public static final String PNC_MOTHER_REVIEW = "PNC_MOTHER_REVIEW";
     public static final String UNDER_FIVE_YEARS = "UNDER_FIVE_YEARS";
     public static final String UNCOMPLICATED_MALARIA = "uncomplicatedMalaria";
 
