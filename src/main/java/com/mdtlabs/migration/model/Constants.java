@@ -35,7 +35,7 @@ public class Constants {
     public static final String FHIR_BASE_URL = "urn:uuid:";
     public static final String PROVENANCE = "Provenance";
     public static final String VILLAGE_QUERY = "SELECT id FROM village ORDER BY id";
-    public static final String VILLAGE_OBJECT_QUERY = "SELECT * FROM village ORDER BY id";
+    public static final String VILLAGE_OBJECT_QUERY = "select v.id as id, member_sequence as member_sequence, c.code as ccode  from village v  join chiefdom c on c.id = v.chiefdom_id ORDER BY v.id";
 
     public static final String ID = "id";
     public static final String VILLAGE_ID = "village-id";

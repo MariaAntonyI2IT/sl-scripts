@@ -58,7 +58,7 @@ public class PatientIdUpdate {
             villageMap.put(resultSet.getInt(Constants.ID),
                     Map.of("code", resultSet.getString("code"), "sequence", resultSet.getString("member_sequence"),
                             //member_sequence
-                            Constants.ID, String.valueOf(resultSet.getInt(Constants.ID))));
+                            Constants.ID, String.valueOf(resultSet.getInt(Constants.ID)), "chiefdomCode", resultSet.getString("ccode")));
         }
 
         // Iterate through each village ID
@@ -69,6 +69,8 @@ public class PatientIdUpdate {
             Bundle updatedBundle = new Bundle().setType(Bundle.BundleType.TRANSACTION);
             int maxsequence = Integer.parseInt(villageMap.get(id).get("sequence"));  // set village max sequence number
             String villageCode = villageMap.get(id).get("code");// set village code value
+            String chiefDOmCode = villageMap.get(id).get("chiefdomCode");// set village code value
+
 
             if (villageCode.length() == 1) {
                 villageCode = "000" + villageCode;
@@ -77,6 +79,14 @@ public class PatientIdUpdate {
             } else if (villageCode.length() == 3) {
                 villageCode = "0" + villageCode;
             }
+
+            if (chiefDOmCode.length() == 1) {
+                chiefDOmCode = "00" + chiefDOmCode;
+            } else if (chiefDOmCode.length() == 2) {
+                chiefDOmCode = "0" + chiefDOmCode;
+            }
+
+
 
             // Fetch FHIR data get related person without mother patient ids
             Bundle bundle = restUtil.getDataFromFhir(
@@ -98,7 +108,7 @@ public class PatientIdUpdate {
                 for (Identifier identifier : relatedPerson.getIdentifier()) {
                     if (PATIENT_IDENTIFIER.equals(identifier.getSystem()) && !Objects.isNull(identifier.getValue())) {
                         oldPatientIdValue = identifier.getValue();
-                        String newPatientId = generatePatientId(oldPatientIdValue, maxsequence, villageCode);
+                        String newPatientId = generatePatientId(oldPatientIdValue, maxsequence, villageCode, chiefDOmCode);
                         maxsequence = maxsequence + 1;
                         identifier.setValue(newPatientId);
                         patientIdsmap.put(oldPatientIdValue, newPatientId);
@@ -132,7 +142,7 @@ public class PatientIdUpdate {
                 for (Identifier identifier : relatedPerson.getIdentifier()) {
                     if (PATIENT_IDENTIFIER.equals(identifier.getSystem()) && !Objects.isNull(identifier.getValue())) {
                         oldPatientIdValue = identifier.getValue();
-                        String newPatientId = generatePatientId(oldPatientIdValue, maxsequence, villageCode);
+                        String newPatientId = generatePatientId(oldPatientIdValue, maxsequence, villageCode, chiefDOmCode);
                         maxsequence = maxsequence + 1;
                         identifier.setValue(newPatientId);
                         patientIdsmap.put(oldPatientIdValue, newPatientId);
@@ -235,8 +245,7 @@ public class PatientIdUpdate {
     }
 
     // Generate new patientId based on villageCode and sequence number
-    private String generatePatientId(String patientId, int maxsequence, String villageCode) {
-        String chiefDomCode = patientId.substring(0, 3);
+    private String generatePatientId(String patientId, int maxsequence, String villageCode,  String chiefDomCode) {
         String userId = patientId.substring(7, (patientId.length() - 4));
         DecimalFormat df = new DecimalFormat("0000");
         String formattedNumber = df.format(maxsequence);
