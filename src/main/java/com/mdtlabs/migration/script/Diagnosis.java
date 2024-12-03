@@ -3,6 +3,7 @@ package com.mdtlabs.migration.script;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Condition;
+import org.hl7.fhir.r4.model.Observation;
 import org.hl7.fhir.r4.model.ResourceType;
 
 import java.util.Arrays;
@@ -42,14 +43,42 @@ public class Diagnosis {
 
                             List<CodeableConcept> category = condition.getCategory();
                             String diagnosis = condition.getIdentifier().get(1).getValue();
+                            Bundle observationBundle = restUtil.getDataFromFhir(StringUtil.concatString(URL,
+                                    "Observation?identifier=signs&subject=" + condition.getSubject().getReference()));
 
-                            if (Constants.ABOVE_FIVE_YEARS.equals(diagnosis)) {
-                                code.setText(Constants.UNCOMPLICATED_MALARIA);
-                            } else if (Arrays.asList(Constants.ANC_REVIEW, Constants.UNDER_TWO_MONTHS, Constants.UNDER_FIVE_YEARS, Constants.PNC_MOTHER_REVIEW).contains(diagnosis)) {
-                                code.setText(Constants.UNCOMPLICATED_MALARIA);
+                            // Assuming observationBundle is already retrieved and contains Observation entries
+                            for (Bundle.BundleEntryComponent observationEntry : observationBundle.getEntry()) {
+                                // Check if the entry resource is an Observation
+                                if (observationEntry.getResource() instanceof Observation) {
+                                    Observation observation = (Observation) observationEntry.getResource();
+                                    boolean hasSevereSymptoms = false;
+                                    String diagnosisCode;
 
-                                if (!category.isEmpty()) {
-                                    category.forEach(item -> item.setText(Constants.UNCOMPLICATED_MALARIA));
+                                    // Iterate through components of the observation
+                                    for (Observation.ObservationComponentComponent component : observation.getComponent()) {
+                                        String componentCodeText = component.getCode().getText();
+
+                                        // Check if the component code is not "noSymptoms"
+                                        if (!Constants.NO_SYMPTOMS.equalsIgnoreCase(componentCodeText)) {
+                                            hasSevereSymptoms = true; // Found a symptom other than "noSymptoms"
+                                            break; // No need to check further components
+                                        }
+                                    }
+
+                                    if (Constants.ABOVE_FIVE_YEARS.equals(diagnosis) || Arrays.asList(Constants.ANC_REVIEW, Constants.UNDER_TWO_MONTHS,
+                                            Constants.UNDER_FIVE_YEARS, Constants.PNC_MOTHER_REVIEW).contains(diagnosis)) {
+                                        if (hasSevereSymptoms) {
+                                            diagnosisCode = Constants.SEVERE_MALARIA; // Set to severe malaria
+                                        } else {
+                                            diagnosisCode = Constants.UNCOMPLICATED_MALARIA; // Set to uncomplicated malaria
+                                        }
+                                        code.setText(diagnosisCode);// Set the code text
+
+                                        // Update category text if not empty
+                                        if (!category.isEmpty() && !Constants.ABOVE_FIVE_YEARS.equals(diagnosis)) {
+                                            category.forEach(item -> item.setText(diagnosisCode));
+                                        }
+                                    }
                                 }
                             }
                             FhirUtils.setBundle(StringUtil.concatString(String.valueOf(ResourceType.Condition), Constants.FORWARD_SLASH, condition.getIdPart()),
