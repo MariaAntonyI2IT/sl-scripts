@@ -56,7 +56,7 @@ public class PatientIdUpdate {
         while (resultSet.next()) {
             villageIds.add(resultSet.getInt(Constants.ID));
             villageMap.put(resultSet.getInt(Constants.ID),
-                    Map.of("code", resultSet.getString("code"), "sequence", resultSet.getString("member_sequence"),
+                    Map.of("code", resultSet.getString("vcode"), "sequence", resultSet.getString("member_sequence"),
                             //member_sequence
                             Constants.ID, String.valueOf(resultSet.getInt(Constants.ID)), "chiefdomCode", resultSet.getString("ccode")));
         }

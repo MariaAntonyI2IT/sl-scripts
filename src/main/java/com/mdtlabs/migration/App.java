@@ -49,6 +49,7 @@ public class App {
                 break;
             case "updateDiagnosisData":
                 new Diagnosis().updateDiagnosisData();
+                break;
             case "facilityReportAdmin":
                 new FacilityReportAdmin().updateReportUserOrganization();
                 break;
