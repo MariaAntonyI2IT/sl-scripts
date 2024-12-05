@@ -1,0 +1,494 @@
+{
+  "tables": [
+    {
+      "name": "api_role_permission",
+      "columns": [
+        {
+          "name": "method",
+          "type": "varchar"
+        },
+        {
+          "name": "api",
+          "type": "varchar"
+        },
+        {
+          "name": "roles",
+          "type": "varchar[]"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        },
+        {
+          "name": "service_name",
+          "type": "varchar"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "category",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "diagnosis",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "description",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        },
+        {
+          "name": "gender",
+          "type": "varchar"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        },
+        {
+          "name": "app_types",
+          "type": "varchar[]"
+        },
+        {
+          "name": "value",
+          "type": "varchar"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "dosage_form",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "varchar"
+        },
+        {
+          "name": "app_types",
+          "type": "varchar[]"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "dosage_frequency",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "description",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "quantity",
+          "type": "int"
+        },
+        {
+          "name": "app_types",
+          "type": "varchar[]"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "examination",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "form_input",
+          "type": "varchar"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "frequency",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        },
+        {
+          "name": "duration",
+          "type": "int"
+        },
+        {
+          "name": "period",
+          "type": "varchar"
+        },
+        {
+          "name": "risk_level",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "title",
+          "type": "varchar"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        },
+        {
+          "name": "app_types",
+          "type": "varchar[]"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "health_facility_type",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "app_types",
+          "type": "varchar[]"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "meta",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        },
+        {
+          "name": "category",
+          "type": "varchar"
+        },
+        {
+          "name": "value",
+          "type": "varchar"
+        },
+        {
+          "name": "description",
+          "type": "varchar"
+        },
+        {
+          "name": "app_types",
+          "type": "varchar[]"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "meta_code_details",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "codes",
+          "type": "jsonb"
+        },
+        {
+          "name": "text",
+          "type": "varchar"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "obstetric_examination",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        },
+        {
+          "name": "value",
+          "type": "varchar"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "presenting_complaints",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "value",
+          "type": "varchar"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "reason",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        },
+        {
+          "name": "app_types",
+          "type": "varchar[]"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "symptom",
+      "columns": [
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "category",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "value",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "disease_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_types",
+          "type": "VARCHAR[]"
+        },
+        {
+          "name": "categories",
+          "type": "jsonb"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "systemic_examinations",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "value",
+          "type": "varchar"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "unit",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        },
+        {
+          "name": "description",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "app_types",
+          "type": "varchar[]"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "disease_category",
+      "columns": [
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "value",
+          "type": "varchar"
+        },
+        {
+          "name": "type",
+          "type": "varchar"
+        },
+        {
+          "name": "display_values",
+          "type": "jsonb"
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "name": "disease_condition",
+      "columns": [
+        {
+          "name": "disease_id",
+          "type": "int"
+        },
+        {
+          "name": "name",
+          "type": "varchar"
+        },
+        {
+          "name": "display_order",
+          "type": "int"
+        },
+        {
+          "name": "value",
+          "type": "varchar"
+        }
+      ],
+      "relationships": [
+        {
+          "target_table": "disease_category",
+          "foreign_key": "disease_id",
+          "reference_key": "id"
+        }
+      ]
+    }
+  ]
+}

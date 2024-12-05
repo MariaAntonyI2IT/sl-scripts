@@ -59,4 +59,25 @@ public class Constants {
     public static final String FACILITY_REPORT_ADMIN_QUERY = "select u.id, uo.organization_id from \"user\" u inner join user_role ur on u.id = ur.user_id inner join role r on ur.role_id = r.id inner join user_organization uo on u.id = uo.user_id where r.name = 'FACILITY_REPORT_ADMIN'";
     public static final String ORGANIZATION_ID = "organization_id";
     public static final String INSERT_INTO_REPORT_USER_ORGANIZATION = "INSERT INTO report_user_organization (user_id, organization_id) VALUES (%d, %d)";
+    public static final String CREATED_BY = "created_by";
+    public static final String UPDATED_BY = "updated_by";
+    public static final String CREATED_AT = "created_at";
+    public static final String UPDATED_AT = "updated_at";
+    public static final String IS_ACTIVE = "is_active";
+    public static final String IS_DELETED = "is_deleted";
+    public static final String SELECT_QUERY = "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = ?)";
+    public static final String VARCHAR_ARRAY = "varchar[]";
+    public static final String VARCHAR = "varchar";
+    public static final String INT = "int";
+    public static final String DOUBLE = "double";
+    public static final String BOOLEAN = "boolean";
+    public static final String JSONB = "jsonb";
+    public static final String TABLES = "tables";
+    public static final String NAME = "name";
+    public static final String COLUMNS = "columns";
+    public static final String TYPE = "type";
+    public static final int BATCH_SIZE = 1000;
+    public static final String RELATIONSHIP = "relationships";
+    public static final String TARGET_TABLE = "target_table";
+    public static final String FOREIGN_KEY = "foreign_key";
 }
