@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import com.mdtlabs.migration.script.Diagnosis;
 import com.mdtlabs.migration.script.FacilityReportAdmin;
 import com.mdtlabs.migration.script.HouseholdMemberLink;
+import com.mdtlabs.migration.script.MemberLocationUpdate;
+import com.mdtlabs.migration.script.EncounterUpdate;
 import com.mdtlabs.migration.script.HouseholdNumberTypeScript;
 import com.mdtlabs.migration.script.HouseholdSequence;
 import com.mdtlabs.migration.script.PatientIdUpdate;
@@ -52,6 +54,12 @@ public class App {
                 break;
             case "facilityReportAdmin":
                 new FacilityReportAdmin().updateReportUserOrganization();
+                break;
+            case "updateEncounterLocation":
+                new EncounterUpdate().updateLocationInEncounter();
+                break;
+            case "MemberLocationUpdate":
+                new MemberLocationUpdate().locatioUpdate();
                 break;
             default:
                 System.out.println("Unknown method: " + args[0]);

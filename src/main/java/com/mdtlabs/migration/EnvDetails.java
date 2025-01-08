@@ -10,6 +10,8 @@ import com.mdtlabs.migration.model.Constants;
 import com.mdtlabs.migration.script.Diagnosis;
 import com.mdtlabs.migration.script.HouseholdMemberLink;
 import com.mdtlabs.migration.script.HouseholdNumberTypeScript;
+import com.mdtlabs.migration.script.MemberLocationUpdate;
+import com.mdtlabs.migration.script.EncounterUpdate;
 import com.mdtlabs.migration.script.HouseholdSequence;
 import com.mdtlabs.migration.script.PatientIdUpdate;
 import com.mdtlabs.migration.script.SpousePartner;
@@ -49,11 +51,17 @@ public class EnvDetails {
             HouseholdNumberTypeScript.URL = prop.getProperty("url");
             Diagnosis.URL = prop.getProperty("url");
             PatientIdUpdate.URL = prop.getProperty("url");
+            EncounterUpdate.URL = prop.getProperty("url");
+            MemberLocationUpdate.URL = prop.getProperty("url");
 
             PatientIdUpdate.BASE_IDENTIFIER = prop.getProperty("identifier");
             HouseholdSequence.BASE_IDENTIFIER = prop.getProperty("identifier");
             HouseholdMemberLink.BASE_IDENTIFIER = prop.getProperty("identifier");
             HouseholdNumberTypeScript.BASE_IDENTIFIER = prop.getProperty("identifier");
+            EncounterUpdate.BASE_IDENTIFIER = prop.getProperty("identifier");
+
+            MemberLocationUpdate.BATCH_SIZE = Integer.parseInt(prop.getProperty("bundle.size"));
+            EncounterUpdate.BATCH_SIZE = Integer.parseInt(prop.getProperty("bundle.size"));
 
         } catch (IOException io) {
             io.printStackTrace();
