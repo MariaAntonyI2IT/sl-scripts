@@ -1,6 +1,7 @@
 package com.mdtlabs.migration.util;
 
 import java.lang.*;
+import java.util.List;
 
 import org.hl7.fhir.r4.model.Bundle;
 import org.springframework.http.HttpEntity;
@@ -84,5 +85,27 @@ public class RestUtil {
         headers.set(Constants.AUTHORIZATION, TOKEN);
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<>(headers);
+    }
+
+    public void saveBundleInBatches(Bundle bundle, int batchSize) {
+        List<Bundle.BundleEntryComponent> entries = bundle.getEntry();
+        int totalResources = entries.size();
+        for (int resouceIndex = 0; resouceIndex < totalResources; resouceIndex += batchSize) {
+            int toIndex = Math.min(resouceIndex + batchSize, totalResources);
+            Bundle batchBundle = new Bundle().setType(Bundle.BundleType.TRANSACTION);
+            List<Bundle.BundleEntryComponent> batchEntries = entries.subList(resouceIndex, toIndex);
+
+            batchBundle.setEntry(batchEntries);
+
+            saveBatchBundle(batchBundle);
+        }
+    }
+
+    public void saveBatchBundle(Bundle updatedBundle) {
+        RestUtil restUtil = new RestUtil();
+        if (!updatedBundle.getEntry().isEmpty()) {
+            System.out.println("saved");
+            restUtil.saveBundle(updatedBundle);
+        }
     }
 }

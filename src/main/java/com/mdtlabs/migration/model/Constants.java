@@ -3,10 +3,13 @@ package com.mdtlabs.migration.model;
 public class Constants {
 
     public static final String HOUSEHOLD_ID = "household-id";
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
 
     private Constants() {}
 
     public static final String RELATED_PERSON = "RelatedPerson?";
+    public static final String ENCOUNTER = "Encounter?";
     public static final String PATIENT = "Patient?";
     public static final String GROUP = "Group?";
     public static final String CLIENT = "client";
@@ -18,6 +21,7 @@ public class Constants {
     public static final String PHONE_NUMBER = "phone";
     // Common Symbols & Strings
     public static final String SPACE = " ";
+    public static final String COMMA = ",";
     public static final String EMPTY = "";
     public static final String FORWARD_SLASH = "/";
     public static final String VERTICAL_BAR = "|";
@@ -59,4 +63,5 @@ public class Constants {
     public static final String FACILITY_REPORT_ADMIN_QUERY = "select u.id, uo.organization_id from \"user\" u inner join user_role ur on u.id = ur.user_id inner join role r on ur.role_id = r.id inner join user_organization uo on u.id = uo.user_id where r.name = 'FACILITY_REPORT_ADMIN'";
     public static final String ORGANIZATION_ID = "organization_id";
     public static final String INSERT_INTO_REPORT_USER_ORGANIZATION = "INSERT INTO report_user_organization (user_id, organization_id) VALUES (%d, %d)";
+    public static final String GEOLOCATIONURL = "http://hl7.org/fhir/StructureDefinition/geolocation";
 }
