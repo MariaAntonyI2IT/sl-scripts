@@ -11,6 +11,7 @@ import com.mdtlabs.migration.script.MemberLocationUpdate;
 import com.mdtlabs.migration.script.EncounterUpdate;
 import com.mdtlabs.migration.script.HouseholdNumberTypeScript;
 import com.mdtlabs.migration.script.HouseholdSequence;
+import com.mdtlabs.migration.script.PatientStatusUpdate;
 import com.mdtlabs.migration.script.PatientIdUpdate;
 import com.mdtlabs.migration.script.SpousePartner;
 
@@ -60,6 +61,9 @@ public class App {
                 break;
             case "MemberLocationUpdate":
                 new MemberLocationUpdate().locatioUpdate();
+                break;
+            case "PatientStatusUpdate":
+                new PatientStatusUpdate().updatePatientStatus();
                 break;
             default:
                 System.out.println("Unknown method: " + args[0]);

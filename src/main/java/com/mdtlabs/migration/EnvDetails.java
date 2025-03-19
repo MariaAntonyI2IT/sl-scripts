@@ -15,6 +15,7 @@ import com.mdtlabs.migration.script.EncounterUpdate;
 import com.mdtlabs.migration.script.HouseholdSequence;
 import com.mdtlabs.migration.script.PatientIdUpdate;
 import com.mdtlabs.migration.script.SpousePartner;
+import com.mdtlabs.migration.script.PatientStatusUpdate;
 import com.mdtlabs.migration.util.FhirUtils;
 import com.mdtlabs.migration.util.RestUtil;
 
@@ -53,12 +54,14 @@ public class EnvDetails {
             PatientIdUpdate.URL = prop.getProperty("url");
             EncounterUpdate.URL = prop.getProperty("url");
             MemberLocationUpdate.URL = prop.getProperty("url");
+            PatientStatusUpdate.URL = prop.getProperty("url");
 
             PatientIdUpdate.BASE_IDENTIFIER = prop.getProperty("identifier");
             HouseholdSequence.BASE_IDENTIFIER = prop.getProperty("identifier");
             HouseholdMemberLink.BASE_IDENTIFIER = prop.getProperty("identifier");
             HouseholdNumberTypeScript.BASE_IDENTIFIER = prop.getProperty("identifier");
             EncounterUpdate.BASE_IDENTIFIER = prop.getProperty("identifier");
+            PatientStatusUpdate.BASE_IDENTIFIER = prop.getProperty("identifier");
 
             MemberLocationUpdate.BATCH_SIZE = Integer.parseInt(prop.getProperty("bundle.size"));
             EncounterUpdate.BATCH_SIZE = Integer.parseInt(prop.getProperty("bundle.size"));
