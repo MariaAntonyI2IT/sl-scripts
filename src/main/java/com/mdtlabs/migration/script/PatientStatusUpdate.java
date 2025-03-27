@@ -29,6 +29,10 @@ public class PatientStatusUpdate {
             String encounterType = null;
             String ticketType = null;
             String patientId = null;
+            String relatedPersonId = serviceRequest.getPerformer().stream().map(Reference::getReference)
+                    .filter(reference -> reference.contains(String.valueOf(ResourceType.RelatedPerson))).findFirst()
+                    .orElse(null);
+            System.out.println(relatedPersonId);
             for (Identifier identifier : serviceRequest.getIdentifier()) {
                 if (StringUtil.concatString(BASE_IDENTIFIER, Constants.PATIENT_CURRENT_STATUS).equals(identifier.getSystem())) {
                     currentStatus = identifier.getValue();
@@ -43,14 +47,10 @@ public class PatientStatusUpdate {
                     encounterType = identifier.getValue();
                 }
             }
-            if (serviceRequest.getRequisition().getSystem().equals(StringUtil.concatString(BASE_IDENTIFIER, Constants.TICKET_TYPE))) {
+            if (Objects.nonNull(serviceRequest.getRequisition()) && Objects.nonNull(serviceRequest.getRequisition().getSystem()) &&  serviceRequest.getRequisition().getSystem().equals(StringUtil.concatString(BASE_IDENTIFIER, Constants.TICKET_TYPE))) {
                 ticketType = serviceRequest.getRequisition().getValue();
             }
             String reason = serviceRequest.getPatientInstruction();
-            String relatedPersonId = serviceRequest.getPerformer().stream().map(Reference::getReference)
-                    .filter(reference -> reference.contains(String.valueOf(ResourceType.RelatedPerson))).findFirst()
-                    .orElse(null);
-
             if (Objects.isNull(currentStatus)) {
                 currentStatus = status;
             }
