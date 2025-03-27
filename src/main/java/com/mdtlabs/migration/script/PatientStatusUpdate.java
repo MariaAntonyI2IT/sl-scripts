@@ -27,6 +27,8 @@ public class PatientStatusUpdate {
             String status = null;
             String category = null;
             String encounterType = null;
+            String ticketType = null;
+            String patientId = null;
             for (Identifier identifier : serviceRequest.getIdentifier()) {
                 if (StringUtil.concatString(BASE_IDENTIFIER, Constants.PATIENT_CURRENT_STATUS).equals(identifier.getSystem())) {
                     currentStatus = identifier.getValue();
@@ -41,19 +43,32 @@ public class PatientStatusUpdate {
                     encounterType = identifier.getValue();
                 }
             }
-            String relatedPerson = serviceRequest.getPerformer().stream().map(Reference::getReference)
+            if (serviceRequest.getRequisition().getSystem().equals(StringUtil.concatString(BASE_IDENTIFIER, Constants.TICKET_TYPE))) {
+                ticketType = serviceRequest.getRequisition().getValue();
+            }
+            String reason = serviceRequest.getPatientInstruction();
+            String relatedPersonId = serviceRequest.getPerformer().stream().map(Reference::getReference)
                     .filter(reference -> reference.contains(String.valueOf(ResourceType.RelatedPerson))).findFirst()
                     .orElse(null);
 
             if (Objects.isNull(currentStatus)) {
                 currentStatus = status;
             }
+            String memberId = getIdFromResourceUrl(relatedPersonId);
+            Bundle relatedPersonBundle = restUtil.getDataFromFhir(StringUtil.concatString(URL, Constants.RELATED_PERSON, "_id=", memberId));
+            for (Bundle.BundleEntryComponent relatedPersonEntry : relatedPersonBundle.getEntry()) {
+                RelatedPerson relatedPerson = (RelatedPerson) relatedPersonEntry.getResource();
+                patientId = relatedPerson.getIdentifier().stream().filter(identifier -> StringUtil.concatString(BASE_IDENTIFIER, Constants.PATIENT_ID).equals(identifier.getSystem())).map(Identifier::getValue).findFirst().orElse(null);
+            }
             if (!Objects.isNull(currentStatus)) {
                 try (PreparedStatement pstmt = connection.prepareStatement(Constants.INSERT_INTO_PATIENT_STATUS)) {
-                    pstmt.setString(1, getIdFromResourceUrl(relatedPerson)); // Assuming this returns an integer
+                    pstmt.setString(1, memberId); // Assuming this returns an integer
                     pstmt.setString(2, currentStatus);  // If it's a string, it's automatically quoted
                     pstmt.setString(3, encounterType);
                     pstmt.setString(4, category);
+                    pstmt.setString(5, ticketType);
+                    pstmt.setString(6, reason);
+                    pstmt.setString(7, patientId);
 
                     System.out.println(pstmt + "------------" + count++);
 
