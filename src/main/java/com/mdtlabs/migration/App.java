@@ -1,25 +1,27 @@
 package com.mdtlabs.migration;
 
+import java.io.IOException;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import com.mdtlabs.migration.script.Diagnosis;
+import com.mdtlabs.migration.script.EncounterUpdate;
 import com.mdtlabs.migration.script.FacilityReportAdmin;
 import com.mdtlabs.migration.script.HouseholdMemberLink;
-import com.mdtlabs.migration.script.MemberLocationUpdate;
-import com.mdtlabs.migration.script.EncounterUpdate;
 import com.mdtlabs.migration.script.HouseholdNumberTypeScript;
 import com.mdtlabs.migration.script.HouseholdSequence;
-import com.mdtlabs.migration.script.PatientStatusUpdate;
+import com.mdtlabs.migration.script.LabTestIdUpdate;
+import com.mdtlabs.migration.script.MemberLocationUpdate;
 import com.mdtlabs.migration.script.PatientIdUpdate;
+import com.mdtlabs.migration.script.PatientStatusUpdate;
 import com.mdtlabs.migration.script.SpousePartner;
 
 /**
  * Hello world!
  */
 public class App {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
         if (args.length == 0) {
             System.out.println("No method specified. Exiting...");
             return;
@@ -64,6 +66,9 @@ public class App {
                 break;
             case "PatientStatusUpdate":
                 new PatientStatusUpdate().updatePatientStatus();
+                break;
+            case "LabTestIdUpdate":
+                new LabTestIdUpdate().updateDiagnosisData();
                 break;
             default:
                 System.out.println("Unknown method: " + args[0]);
