@@ -31,6 +31,7 @@ public class Constants {
     public static final String EMPTY = "";
     public static final String FORWARD_SLASH = "/";
     public static final String VERTICAL_BAR = "|";
+    public static final String UNDER_SCORE = "_";
     public static final String STRING_ZERO = "0";
     public static final int ZERO = 0;
     public static final int ONE = 1;
@@ -71,4 +72,9 @@ public class Constants {
     public static final String INSERT_INTO_REPORT_USER_ORGANIZATION = "INSERT INTO report_user_organization (user_id, organization_id) VALUES (%d, %d)";
     public static final String INSERT_INTO_PATIENT_STATUS = "INSERT INTO patient_status (member_id, patient_status, encounter_type, category, type, reason, patient_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
     public static final String GEOLOCATIONURL = "http://hl7.org/fhir/StructureDefinition/geolocation";
+
+    public static String CSV_LOG = "log";
+    public static String CSV_DATE_FORMAT="yyyy-MM-dd_HH-mm-ss";
+    public static String CSV_FORMAT=".csv";
+
 }
