@@ -39,12 +39,21 @@ public class LabTestIdUpdate {
     public void updateDiagnosisData() throws SQLException, IOException {
         String LAB_TEST_NAME_IDENTIFIER = StringUtil.concatString(BASE_IDENTIFIER, "lab-test-name");
         String LAB_TEST_ID_IDENTIFIER = StringUtil.concatString(BASE_IDENTIFIER, "lab-test-id");
-        String DIAGNOSTIC_REPORT_URL = "DiagnosticReport?identifier=" + LAB_TEST_NAME_IDENTIFIER + "|&_count=100000";
+        String DIAGNOSTIC_REPORT_URL = "DiagnosticReport?identifier=" + LAB_TEST_NAME_IDENTIFIER+"|&_count=100000";
 
         Map<String, Long> labTestData = fetchDiagnosticReport();
         RestUtil restUtil = new RestUtil();
         Bundle updatedBundle = new Bundle().setType(Bundle.BundleType.TRANSACTION);
-        Bundle bundle = restUtil.getDataFromFhir(StringUtil.concatString(URL, DIAGNOSTIC_REPORT_URL));
+        Bundle bundle = restUtil.getBatchRequest(StringUtil.concatString(URL, DIAGNOSTIC_REPORT_URL));
+        List<String> idList = new ArrayList<>();
+        bundle.getEntry().stream()
+                .filter(entry -> Objects.nonNull(entry.getResource()) && entry.getResource() instanceof DiagnosticReport)
+                .forEach(entry -> {
+                            DiagnosticReport diagnosticReport = (DiagnosticReport) entry.getResource();
+                            System.out.println(diagnosticReport.getIdentifier().stream().noneMatch(id -> id.getSystem().equalsIgnoreCase(LAB_TEST_ID_IDENTIFIER)));
+                            idList.add(diagnosticReport.getIdPart());
+                        });
+
         List<String> headers = List.of(SUCCESS, FAILURE, UNKNOWN_LAB_TEST);
         List<String[]> data = new ArrayList<>();
         if (Objects.nonNull(bundle)) {
@@ -77,6 +86,7 @@ public class LabTestIdUpdate {
                                 FhirUtils.setBundle(StringUtil.concatString(String.valueOf(ResourceType.DiagnosticReport), Constants.FORWARD_SLASH, diagnosticReport.getIdPart()),
                                         StringUtil.concatString(String.valueOf(ResourceType.DiagnosticReport), diagnosticReport.getIdPart()),
                                         Bundle.HTTPVerb.PUT, diagnosticReport, updatedBundle, provenance);
+
 
                                 row[0] = diagnosticReport.getIdPart();
                             }
